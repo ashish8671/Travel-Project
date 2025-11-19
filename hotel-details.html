@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sikkim Hotels | Explore Stays</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      margin: 0;
+    }
+
+    header {
+      background: #0c3d3d;
+      padding: 15px 0;
+      color: white;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a.active {
+      border-bottom: 2px solid #fff;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .section h2 {
+      text-align: center;
+      color: #00bfff;
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+
+    .hotel-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+
+    .hotel-card {
+      background: #111;
+      border-radius: 15px;
+      width: 320px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255,255,255,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .hotel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+    }
+
+    .hotel-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .hotel-info {
+      padding: 15px;
+    }
+
+    .hotel-info h3 {
+      color: #00bfff;
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .hotel-info p {
+      margin-bottom: 5px;
+      color: #bbb;
+      font-size: 15px;
+    }
+
+    .button {
+      display: inline-block;
+      background: linear-gradient(to right, #007bff, #00bfff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: all 0.3s;
+    }
+
+    .button:hover {
+      background: linear-gradient(to right, #0056b3, #0099cc);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #0c3d3d;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="booking.html">Hotel Booking</a></li>
+        <li><a href="travel.html" class="active">Travel</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="section">
+    <h2>Available Hotels & Restaurants</h2>
+    <p>Here are the top-rated stays and restaurants currently available in Sikkim.</p>
+
+    <div class="hotel-list">
+
+      <div class="hotel-card">
+        <img src="assets/img/hotelimg1.webp" alt="Mayfair Spa Resort">
+        <div class="hotel-info">
+          <h3>Mayfair Spa Resort & Casino</h3>
+          <p>⭐⭐⭐⭐⭐ | Gangtok</p>
+          <p>Deluxe Room – ₹8,500/night</p>
+          <p>Suite – ₹12,000/night</p>
+          <p>Available Rooms: 7</p>
+          <a href="booking.html" class="button">Book Now</a>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img src="assets/img/hotelimg2.jpeg" alt="Denzong Regency">
+        <div class="hotel-info">
+          <h3>Denzong Regency</h3>
+          <p>⭐⭐⭐⭐ | Gangtok</p>
+          <p>Standard – ₹6,500/night</p>
+          <p>Executive – ₹9,500/night</p>
+          <p>Available Rooms: 4</p>
+          <a href="booking.html" class="button">Book Now</a>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img src="assets/img/hotelimg4.jpg" alt="The Elgin Nor-Khill">
+        <div class="hotel-info">
+          <h3>The Elgin Nor-Khill</h3>
+          <p>⭐⭐⭐⭐ | Gangtok</p>
+          <p>Luxury – ₹7,200/night</p>
+          <p>Suite – ₹10,500/night</p>
+          <p>Available Rooms: 5</p>
+          <a href="booking.html" class="button">Book Now</a>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img src="assets/img/restoimg1.webp" alt="The Square Restaurant">
+        <div class="hotel-info">
+          <h3>The Square Restaurant</h3>
+          <p>🍽️ Fine Dining | Gangtok</p>
+          <p>Average Cost: ₹800 – ₹1,500</p>
+          <p>Open: 10 AM – 11 PM</p>
+          <a href="#" class="button">Reserve Table</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Explore Sikkim | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

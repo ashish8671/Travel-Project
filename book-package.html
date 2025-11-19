@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Tour Package | Explore Sikkim</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #001f1f, #004040);
+      color: white;
+      margin: 0;
+    }
+
+    .booking-container {
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00e6e6;
+    }
+
+    .package-preview {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .package-preview img {
+      width: 100%;
+      max-height: 300px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .package-info {
+      margin-top: 10px;
+      color: #d0f0f0;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    input, select, textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    button {
+      background: linear-gradient(to right, #007bff, #00bfff);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #0056b3, #0099cc);
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <h2>Book Your Tour Package</h2>
+
+    <div class="package-preview">
+      <img id="package-image" src="assets/img/home-photo-1.jpg" alt="Package Image">
+      <div class="package-info">
+        <h3 id="package-title"></h3>
+        <p id="package-description"></p>
+        <p id="package-price" style="color:#00bfff;font-weight:bold;"></p>
+      </div>
+    </div>
+
+    <form id="booking-form">
+      <input id="name" type="text" placeholder="Full Name" required>
+      <input id="email" type="email" placeholder="Email Address" required>
+      <input id="phone" type="tel" placeholder="Phone Number" required>
+      <label>Travel Date:</label>
+      <input id="date" type="date" required>
+      <label>Number of Travelers:</label>
+      <select id="travelers" required>
+        <option value="1">1 Person</option>
+        <option value="2">2 People</option>
+        <option value="3">3 People</option>
+        <option value="4+">4 or more</option>
+      </select>
+      <textarea id="requests" rows="3" placeholder="Additional Requests (Optional)"></textarea>
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const data = JSON.parse(localStorage.getItem("selectedPackage"));
+      if (data) {
+        document.getElementById("package-title").innerText = data.title;
+        document.getElementById("package-description").innerText = data.description;
+        document.getElementById("package-price").innerText = "Price: " + data.price;
+        document.getElementById("package-image").src = data.image;
+      }
+
+      document.getElementById("booking-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const bookingData = {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          phone: document.getElementById("phone").value,
+          date: document.getElementById("date").value,
+          travelers: document.getElementById("travelers").value,
+          requests: document.getElementById("requests").value,
+          packageTitle: data?.title || "Unknown",
+          packagePrice: data?.price || "Not specified"
+        };
+
+        console.log("📤 Sending tour booking data:", bookingData);
+
+        try {
+          const res = await fetch("http://localhost:3000/save_tour_booking", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(bookingData)
+          });
+
+          if (res.ok) {
+            alert("✅ Your tour package booking has been submitted successfully!");
+            localStorage.removeItem("selectedPackage");
+            window.location.href = "tour-packages.html";
+          } else {
+            alert("❌ Failed to submit booking. Please try again later.");
+          }
+        } catch (err) {
+          console.error("⚠️ Error:", err);
+          alert("⚠️ Could not connect to the server.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

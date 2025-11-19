@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Booking | Explore Sikkim</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+    }
+
+    header {
+      background: #0c3d3d;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a.active {
+      border-bottom: 2px solid #fff;
+    }
+
+    .booking-form-container {
+      background: white;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .booking-form-container h2 {
+      text-align: center;
+      color: #0c3d3d;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    textarea {
+      grid-column: span 2;
+      resize: none;
+      height: 100px;
+    }
+
+    .payment-section {
+      grid-column: span 2;
+      background: #f0f9f9;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .payment-section h3 {
+      color: #0c3d3d;
+      margin-bottom: 10px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+    }
+
+    .submit-btn {
+      grid-column: span 2;
+      background: linear-gradient(to right, #007bff, #00bfff);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(to right, #0056b3, #0099cc);
+    }
+
+    footer {
+      text-align: center;
+      background: #0c3d3d;
+      color: white;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="booking.html">Hotel Booking</a></li>
+        <li><a href="travel.html" class="active">Travel</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="booking-form-container">
+    <h2>Complete Your Booking</h2>
+
+    <form id="bookingForm">
+      <div>
+        <label>Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" required>
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+      <div>
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required>
+      </div>
+      <div>
+        <label>City</label>
+        <input type="text" id="city" placeholder="Enter your city" required>
+      </div>
+
+      <div>
+        <label>Check-in Date</label>
+        <input type="date" id="checkin" required>
+      </div>
+      <div>
+        <label>Check-out Date</label>
+        <input type="date" id="checkout" required>
+      </div>
+      <div>
+        <label>Number of Guests</label>
+        <select id="guests" required>
+          <option value="">Select</option>
+          <option>1 Adult</option>
+          <option>2 Adults</option>
+          <option>Family (3-5)</option>
+          <option>Group (6+)</option>
+        </select>
+      </div>
+      <div>
+        <label>Hotel Name</label>
+        <input type="text" id="hotelName" placeholder="Hotel Mayfair, Gangtok" required>
+      </div>
+
+      <textarea id="requests" placeholder="Special requests (optional)"></textarea>
+
+      <div class="payment-section">
+        <h3>Payment Method</h3>
+        <div class="payment-option">
+          <input type="radio" name="payment" id="upi" required>
+          <label for="upi">UPI / Online Payment</label>
+        </div>
+        <div class="payment-option">
+          <input type="radio" name="payment" id="card">
+          <label for="card">Credit / Debit Card</label>
+        </div>
+        <div class="payment-option">
+          <input type="radio" name="payment" id="cash">
+          <label for="cash">Pay at Hotel</label>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Confirm Booking</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>© 2025 Explore Sikkim | All Rights Reserved</p>
+  </footer>
+
+  <!-- ✅ JavaScript for Backend Integration -->
+  <script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("bookingForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const bookingData = {
+      name: document.getElementById("fullName").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      city: document.getElementById("city").value.trim(),
+      checkin: document.getElementById("checkin").value,
+      checkout: document.getElementById("checkout").value,
+      guests: document.getElementById("guests").value,
+      hotelName: document.getElementById("hotelName").value.trim(),
+      requests: document.getElementById("requests").value.trim(),
+      payment: document.querySelector('input[name="payment"]:checked')?.id || "Not Selected"
+    };
+
+    console.log("📤 Sending booking data:", bookingData);
+
+    try {
+      const response = await fetch("http://localhost:3000/save_booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bookingData)
+      });
+
+      if (response.ok) {
+        alert("✅ Booking saved successfully!");
+        form.reset();
+      } else {
+        const text = await response.text();
+     
+        alert("❌ Failed to save booking. Check console for details.");
+      }
+    } catch (err) {
+      console.error("⚠️ Fetch Error:", err);
+      alert("⚠️ Could not connect to server.");
+    }
+  });
+});
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Booking | Explore Sikkim</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+    }
+
+    header {
+      background: #0c3d3d;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a.active {
+      border-bottom: 2px solid #fff;
+    }
+
+    .travel-form-container {
+      background: white;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .travel-form-container h2 {
+      text-align: center;
+      color: #0c3d3d;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 500;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .submit-btn {
+      grid-column: span 2;
+      background: linear-gradient(to right, #007bff, #00bfff);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(to right, #0056b3, #0099cc);
+    }
+
+    footer {
+      text-align: center;
+      background: #0c3d3d;
+      color: white;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="booking.html">Hotel Booking</a></li>
+        <li><a href="travel.html" class="active">Travel</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="travel-form-container">
+    <h2>Book Your Ride in Sikkim</h2>
+    <form id="travelForm">
+      <div>
+        <label>Full Name</label>
+        <input type="text" id="fullName" required placeholder="Enter your name">
+      </div>
+
+      <div>
+        <label>Email</label>
+        <input type="email" id="email" required placeholder="Enter your email">
+      </div>
+
+      <div>
+        <label>Phone</label>
+        <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX">
+      </div>
+
+      <div>
+        <label>Mode of Travel</label>
+        <select id="mode" required>
+          <option value="">Select</option>
+          <option value="Car">Car</option>
+          <option value="Bus">Bus</option>
+          <option value="Train">Train</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Pickup Location</label>
+        <input type="text" id="pickup" required placeholder="Enter pickup point">
+      </div>
+
+      <div>
+        <label>Destination</label>
+        <input type="text" id="destination" required placeholder="Enter destination">
+      </div>
+
+      <div>
+        <label>Travel Date</label>
+        <input type="date" id="date" required>
+      </div>
+
+      <div>
+        <label>Passengers</label>
+        <input type="number" id="passengers" min="1" required>
+      </div>
+
+      <div>
+        <label>Need a Driver/Guide?</label>
+        <select id="guide">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-btn">Confirm Travel</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>© 2025 Explore Sikkim | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById("travelForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        mode: document.getElementById("mode").value,
+        pickup: document.getElementById("pickup").value.trim(),
+        destination: document.getElementById("destination").value.trim(),
+        date: document.getElementById("date").value,
+        passengers: document.getElementById("passengers").value,
+        guide: document.getElementById("guide").value
+      };
+
+      console.log("📤 Sending travel data:", data);
+
+      try {
+        const res = await fetch("http://localhost:3000/save_travel", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          alert("✅ Travel booked successfully!");
+          document.getElementById("travelForm").reset();
+        } else {
+          alert("❌ Failed to book travel. Check backend.");
+        }
+      } catch (err) {
+        console.error("⚠️ Error:", err);
+        alert("⚠️ Could not connect to server.");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Explore Sikkim</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f5f8f8;
+    }
+    header { background: #0c3d3d; color: white; padding: 15px 0; text-align: center; }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0; }
+    nav a { color: white; text-decoration: none; font-weight: 500; }
+    nav a.active { border-bottom: 2px solid #fff; }
+    .contact-section { max-width: 1000px; margin: 50px auto; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 40px; }
+    .contact-section h2 { text-align: center; color: #0c3d3d; margin-bottom: 15px; }
+    .contact-section p { text-align: center; color: #555; margin-bottom: 30px; }
+    .contact-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+    .contact-form { flex: 1 1 45%; }
+    .contact-form form { display: flex; flex-direction: column; gap: 15px; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 15px; }
+    .contact-form textarea { resize: none; height: 120px; }
+    .contact-form button { background: linear-gradient(to right, #007bff, #00bfff); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+    .contact-form button:hover { background: linear-gradient(to right, #0056b3, #0099cc); }
+    .contact-info { flex: 1 1 45%; }
+    .contact-info h3 { color: #0c3d3d; margin-bottom: 15px; }
+    .contact-info p { margin: 8px 0; color: #333; }
+    .map-container { margin-top: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    iframe { width: 100%; height: 250px; border: none; }
+    footer { text-align: center; background: #0c3d3d; color: white; padding: 20px 0; margin-top: 50px; }
+    @media (max-width: 768px) { .contact-container { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="booking.html">Hotel Booking</a></li>
+        <li><a href="travel.html" class="active">Travel</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="contact-section">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you! For any travel assistance, hotel bookings, or tourism guidance in Sikkim, reach out using the form below.</p>
+
+    <div class="contact-container">
+      <div class="contact-form">
+        <form id="contactForm">
+          <input type="text" id="name" placeholder="Full Name" required>
+          <input type="email" id="email" placeholder="Email Address" required>
+          <input type="tel" id="phone" placeholder="Phone Number" required>
+          <textarea id="message" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+
+   <div class="contact-info">
+  <h3>Get in Touch</h3>
+  <p><strong>📍 Address:</strong> MG Marg, Gangtok, Sikkim 737101</p>
+
+  <!-- ✅ Make phone clickable for WhatsApp -->
+  <p>
+    <strong>📞 Phone:</strong>
+    <a href="https://wa.me/919021979713" target="_blank" style="color:#007bff; text-decoration:none;">
+      +91 9021979713
+    </a>
+  </p>
+
+  <!-- ✅ Make email clickable for Gmail compose -->
+  <p>
+    <strong>📧 Email:</strong>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sikkimtour115@gmail.com"
+       target="_blank"
+       style="color:#007bff; text-decoration:none;">
+      sikkimtour115@gmail.com
+    </a>
+  </p>
+
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57414.87166331283!2d88.5845!3d27.3389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a56d3760eb81%3A0x8a2a708e44e7e3a7!2sGangtok%2C%20Sikkim!5e0!3m2!1sen!2sin!4v1700000000000"
+            allowfullscreen=""
+            loading="lazy"></iframe>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Explore Sikkim | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const message = document.getElementById("message").value;
+
+      const response = await fetch("http://localhost:3000/save_contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+
+      if (response.ok) {
+        alert("✅ Your message has been sent successfully!");
+        document.getElementById("contactForm").reset();
+      } else {
+        alert("❌ Failed to send your message. Try again later.");
+      }
+    });
+
+    const contactData = {
+  fullName: document.getElementById("name").value, // instead of "fullName"
+  email: document.getElementById("email").value,
+  phone: document.getElementById("phone").value,
+  message: document.getElementById("message").value
+};
+
+  </script>
+
+  
+</body>
+</html>
